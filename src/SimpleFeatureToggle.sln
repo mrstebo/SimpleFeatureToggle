@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFeatureToggle", "SimpleFeatureToggle\SimpleFeatureToggle.csproj", "{229AFC18-AE48-4220-A24F-8EBE193ECFCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFeatureToggle.Tests", "SimpleFeatureToggle.Tests\SimpleFeatureToggle.Tests.csproj", "{A3C7F023-D40F-468C-8BFB-D9D488586DBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{229AFC18-AE48-4220-A24F-8EBE193ECFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{229AFC18-AE48-4220-A24F-8EBE193ECFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{229AFC18-AE48-4220-A24F-8EBE193ECFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{229AFC18-AE48-4220-A24F-8EBE193ECFCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C7F023-D40F-468C-8BFB-D9D488586DBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C7F023-D40F-468C-8BFB-D9D488586DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C7F023-D40F-468C-8BFB-D9D488586DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C7F023-D40F-468C-8BFB-D9D488586DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
