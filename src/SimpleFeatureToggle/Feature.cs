@@ -13,7 +13,8 @@ namespace SimpleFeatureToggle
             return new Feature
             {
                 Name = kvp.Key,
-                Enabled = kvp.Value.Equals("true", StringComparison.OrdinalIgnoreCase) ||
+                Enabled = kvp.Value == "1" ||
+                          kvp.Value.Equals("true", StringComparison.OrdinalIgnoreCase) ||
                           kvp.Value.Equals("y", StringComparison.OrdinalIgnoreCase)
             };
         }

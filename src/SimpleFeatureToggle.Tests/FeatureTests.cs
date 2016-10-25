@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace SimpleFeatureToggle.Tests
@@ -19,13 +20,15 @@ namespace SimpleFeatureToggle.Tests
         }
 
         [Test]
-        [TestCase("y", true)]
-        [TestCase("true", true)]
+        [TestCase(0, false)]
         [TestCase("n", false)]
         [TestCase("false", false)]
-        public void Parse_ShouldConvert_ValueToBoolean(string value, bool expected)
+        [TestCase(1, true)]
+        [TestCase("y", true)]
+        [TestCase("true", true)]
+        public void Parse_ShouldConvert_ValueToBoolean(object value, bool expected)
         {
-            var kvp = new KeyValuePair<string, string>("test", value);
+            var kvp = new KeyValuePair<string, string>("test", Convert.ToString(value));
 
             var result = Feature.Parse(kvp);
 
