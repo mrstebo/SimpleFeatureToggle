@@ -39,7 +39,7 @@ namespace SimpleFeatureToggle.Tests
             var expected = new Feature
             {
                 Enabled = true,
-                Name = testFileName
+                Name = "test"
             };
 
             _fileReader
