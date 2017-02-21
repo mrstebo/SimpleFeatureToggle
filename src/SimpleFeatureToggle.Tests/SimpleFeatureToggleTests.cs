@@ -149,16 +149,12 @@ namespace SimpleFeatureToggle.Tests
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void IsEnabled_When_NoLoadingStrategyIsPassed_ShouldReturn_DefaultValue(bool defaultValue)
+        public void IsEnabled_When_NoLoadingStrategyIsPassed_ShouldThrowAnException(bool defaultValue)
         {
-            var sft = new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
+            Assert.Throws<ArgumentNullException>(() => new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
             {
                 FeatureLoadingStrategy = null
-            });
-
-            var result = sft.IsEnabled("MY_FEATURE", defaultValue);
-
-            Assert.AreEqual(defaultValue, result);
+            }));
         }
     }
 }

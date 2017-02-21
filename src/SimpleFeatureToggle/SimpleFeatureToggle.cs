@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SimpleFeatureToggle
@@ -7,8 +8,13 @@ namespace SimpleFeatureToggle
     {
         private readonly SimpleFeatureToggleConfiguration _configuration;
 
-        internal SimpleFeatureToggle(SimpleFeatureToggleConfiguration configuration)
+        public SimpleFeatureToggle(SimpleFeatureToggleConfiguration configuration)
         {
+            if (configuration.FeatureLoadingStrategy == null)
+            {
+                throw new ArgumentNullException("configuration");
+            }
+
             _configuration = configuration;
         }
 

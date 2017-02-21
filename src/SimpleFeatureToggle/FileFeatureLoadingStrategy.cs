@@ -9,18 +9,12 @@ namespace SimpleFeatureToggle
     public class FileFeatureLoadingStrategy : IFeatureLoadingStrategy
     {
         private readonly IFileReader _fileReader;
-        private string _fileName;
+        private readonly string _fileName;
 
-        public FileFeatureLoadingStrategy(string fileName = null, IFileReader fileReader = null)
+        public FileFeatureLoadingStrategy(string fileName, IFileReader fileReader = null)
         {
             _fileReader = fileReader ?? new FileReader();
             _fileName = fileName;
-        }
-
-        public FileFeatureLoadingStrategy From(string fileName)
-        {
-            _fileName = fileName;
-            return this;
         }
 
         public IEnumerable<Feature> GetFeatures()
