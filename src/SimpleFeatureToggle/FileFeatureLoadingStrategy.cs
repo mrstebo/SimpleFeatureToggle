@@ -11,9 +11,15 @@ namespace SimpleFeatureToggle
         private readonly IFileReader _fileReader;
         private readonly string _fileName;
 
-        public FileFeatureLoadingStrategy(string fileName, IFileReader fileReader = null)
+        public FileFeatureLoadingStrategy(string fileName)
+            : this(fileName, new FileReader())
         {
-            _fileReader = fileReader ?? new FileReader();
+            // no-op
+        }
+
+        internal FileFeatureLoadingStrategy(string fileName, IFileReader fileReader)
+        {
+            _fileReader = fileReader;
             _fileName = fileName;
         }
 
