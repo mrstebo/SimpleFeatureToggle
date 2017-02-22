@@ -6,7 +6,9 @@
 # SimpleFeatureToggle
 A really simple library for checking if a feature is enabled/disabled
 
-Here is what the file that is passed in to `SimpleFeatureToggleConfiguration` should look like:
+## Quick Start
+
+If you are using the `FileFeatureLoadingStrategy` then here is what the file should look like:
 
 ```js
 {
@@ -18,4 +20,3 @@ Here is what the file that is passed in to `SimpleFeatureToggleConfiguration` sh
   "enabled-feature-3": "true",  
 }
 ```
-
