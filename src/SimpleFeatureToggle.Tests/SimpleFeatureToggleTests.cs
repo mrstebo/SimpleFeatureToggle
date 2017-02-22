@@ -22,7 +22,7 @@ namespace SimpleFeatureToggle.Tests
         {
             var sft = new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
             {
-                Filename = "test.json"
+                FeatureLoadingStrategy = new InMemoryFeatureLoadingStrategy()
             });
 
             Assert.IsNotNull(sft);
@@ -31,14 +31,16 @@ namespace SimpleFeatureToggle.Tests
         [Test]
         public void GetFeatures_ShouldReturn_CollectionOf_Features()
         {
+            const string testFileName = "test.json";
+
             _fileReader
-                .Setup(x => x.ReadToEnd("test.json"))
+                .Setup(x => x.ReadToEnd(testFileName))
                 .Returns("{\"test\": 1}");
 
             var sft = new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
             {
-                Filename = "test.json"
-            }, _fileReader.Object);
+                FeatureLoadingStrategy = new FileFeatureLoadingStrategy(testFileName, _fileReader.Object)
+            });
 
             var result = sft.GetFeatures().ToArray();
 
@@ -50,14 +52,16 @@ namespace SimpleFeatureToggle.Tests
         [Test]
         public void GetFeatures_When_FileLoaderRaisesException_ShouldReturn_EmptyCollectionOf_Features()
         {
+            const string testFileName = "test.json";
+
             _fileReader
-                .Setup(x => x.ReadToEnd("test.json"))
+                .Setup(x => x.ReadToEnd(testFileName))
                 .Throws(new Exception());
 
             var sft = new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
             {
-                Filename = "test.json"
-            }, _fileReader.Object);
+                FeatureLoadingStrategy = new FileFeatureLoadingStrategy(testFileName, _fileReader.Object)
+            });
 
             var result = sft.GetFeatures().ToArray();
 
@@ -67,14 +71,16 @@ namespace SimpleFeatureToggle.Tests
         [Test]
         public void Find_ShouldReturn_Feature()
         {
+            const string testFileName = "test.json";
+
             _fileReader
-                .Setup(x => x.ReadToEnd("test.json"))
+                .Setup(x => x.ReadToEnd(testFileName))
                 .Returns("{\"MY_FEATURE\": 1}");
 
             var sft = new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
             {
-                Filename = "test.json"
-            }, _fileReader.Object);
+                FeatureLoadingStrategy = new FileFeatureLoadingStrategy(testFileName, _fileReader.Object)
+            });
 
             var result = sft.Find("MY_FEATURE");
 
@@ -84,14 +90,16 @@ namespace SimpleFeatureToggle.Tests
         [Test]
         public void Find_When_FeatureDoesNotExist_ShouldReturn_Null()
         {
+            const string testFileName = "test.json";
+
             _fileReader
-                .Setup(x => x.ReadToEnd("test.json"))
+                .Setup(x => x.ReadToEnd(testFileName))
                 .Returns("{\"MY_FEATURE\": 1}");
 
             var sft = new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
             {
-                Filename = "test.json"
-            }, _fileReader.Object);
+                FeatureLoadingStrategy = new FileFeatureLoadingStrategy(testFileName, _fileReader.Object)
+            });
 
             var result = sft.Find("NOT_A_FEATURE");
 
@@ -101,14 +109,16 @@ namespace SimpleFeatureToggle.Tests
         [Test]
         public void IsEnabled_ShouldReturn_FeatureEnabled()
         {
+            const string testFileName = "test.json";
+
             _fileReader
-                .Setup(x => x.ReadToEnd("test.json"))
+                .Setup(x => x.ReadToEnd(testFileName))
                 .Returns("{\"MY_FEATURE\": 1}");
 
             var sft = new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
             {
-                Filename = "test.json"
-            }, _fileReader.Object);
+                FeatureLoadingStrategy = new FileFeatureLoadingStrategy(testFileName, _fileReader.Object)
+            });
 
             var result = sft.IsEnabled("MY_FEATURE");
 
@@ -120,18 +130,31 @@ namespace SimpleFeatureToggle.Tests
         [TestCase(false)]
         public void IsEnabled_When_FeatureNotFound_ShouldReturn_DefaultValue(bool defaultValue)
         {
+            const string testFileName = "test.json";
+
             _fileReader
-                .Setup(x => x.ReadToEnd("test.json"))
+                .Setup(x => x.ReadToEnd(testFileName))
                 .Returns("{\"MY_FEATURE\": " + Convert.ToInt32(defaultValue) + "}");
 
             var sft = new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
             {
-                Filename = "test.json"
-            }, _fileReader.Object);
+                FeatureLoadingStrategy = new FileFeatureLoadingStrategy(testFileName, _fileReader.Object)
+            });
 
             var result = sft.IsEnabled("MY_FEATURE", defaultValue);
 
             Assert.AreEqual(defaultValue, result);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsEnabled_When_NoLoadingStrategyIsPassed_ShouldThrowAnException(bool defaultValue)
+        {
+            Assert.Throws<ArgumentNullException>(() => new SimpleFeatureToggle(new SimpleFeatureToggleConfiguration
+            {
+                FeatureLoadingStrategy = null
+            }));
         }
     }
 }

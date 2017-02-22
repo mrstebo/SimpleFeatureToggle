@@ -2,6 +2,6 @@
 {
     public class SimpleFeatureToggleConfiguration
     {
-        public string Filename { get; set; }
+        public IFeatureLoadingStrategy FeatureLoadingStrategy { get; set; }
     }
 }
